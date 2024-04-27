@@ -23,4 +23,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-app
-          path: out/make/squirrel.windows/x64/test-electron-publish-1.0.0\ Setup.exe
+          path: out/make/squirrel.windows/x64/testapp-1.0.0 Setup.exe
