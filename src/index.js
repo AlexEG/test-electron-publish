@@ -1,8 +1,13 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('node:path');
+const { app, BrowserWindow, dialog } = require("electron");
+const path = require("node:path");
+
+const { autoUpdater } = require("electron-updater");
+
+// Initialize autoUpdater
+autoUpdater.checkForUpdatesAndNotify();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
+if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
@@ -12,12 +17,12 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -31,7 +36,7 @@ app.whenReady().then(() => {
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  app.on('activate', () => {
+  app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
@@ -41,11 +46,56 @@ app.whenReady().then(() => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+// In your main process file (main.js)
+
+// const { autoUpdater } = require("electron-updater");
+
+// // Create a menu item or button that triggers the update check
+// // For demonstration purposes, let's assume you have a "Check for Updates" menu item
+// // in your app's menu.
+
+// // When the user clicks "Check for Updates":
+// function checkForUpdatesManually() {
+//   autoUpdater.checkForUpdates().then((updateInfo) => {
+//     if (updateInfo.updateAvailable) {
+//       // Notify the user that an update is available
+//       const response = dialog.showMessageBoxSync({
+//         type: "info",
+//         buttons: ["Download", "Cancel"],
+//         title: "Update Available",
+//         message: `A new version (${updateInfo.version}) is available. Do you want to download it?`,
+//       });
+
+//       if (response === 0) {
+//         // User clicked "Download," initiate the download
+//         autoUpdater.downloadUpdate();
+//       }
+//     } else {
+//       // No update available
+//       dialog.showMessageBox({
+//         type: "info",
+//         title: "No Updates",
+//         message: "Your app is up to date!",
+//       });
+//     }
+//   });
+// }
+
+// // Attach the "checkForUpdatesManually" function to your menu item or button
+// // (e.g., when the user clicks the "Check for Updates" menu item)
+
+// // ...
+
+// // Initialize autoUpdater (you can do this at app startup)
+// // autoUpdater.checkForUpdatesAndNotify();
+
+// checkForUpdatesManually();
