@@ -29,8 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "electron-updater": "^6.1.8",
-    "update-electron-app": "^3.0.0"
+    "electron-updater": "^6.1.8"
   },
   "build": {
     "appId": "com.example.yourapp",
